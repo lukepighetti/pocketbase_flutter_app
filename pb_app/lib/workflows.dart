@@ -1,7 +1,8 @@
+import 'package:pb_app/config.dart';
 import 'package:pb_app/secrets.dart';
 import 'package:pocketbase/pocketbase.dart';
 
-final client = PocketBase('http://127.0.0.1:8090');
+final client = PocketBase(Config.baseUrl);
 
 class AppWorkflows {
   Future<UserAuth> authenticate() {
