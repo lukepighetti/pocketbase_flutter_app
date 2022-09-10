@@ -10,21 +10,21 @@ String pbFileUrl({
 }
 
 extension RecordModelX on RecordModel {
-  String resolveFileUrl(String filename) {
+  String resolveFileUrl(String fieldKey) {
     return pbFileUrl(
       collectionIdOrName: collectionId,
       recordId: id,
-      filename: filename,
+      filename: data[fieldKey],
     );
   }
 }
 
 extension RecordMapX on Map<String, dynamic> {
-  String resolveFileUrl(String filename) {
+  String resolveFileUrl(String fieldKey) {
     return pbFileUrl(
       collectionIdOrName: this['@collectionId'],
       recordId: this['id'],
-      filename: filename,
+      filename: this[fieldKey],
     );
   }
 }

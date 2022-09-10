@@ -12,13 +12,9 @@ class AndroidSubmissionDto {
 
   late final bool approved = _data['approved'];
 
-  late final String lockScreenFilename = _data['lock_screen'];
+  late final String lockScreenUrl = _record.resolveFileUrl('lock_screen');
 
-  late final String lockScreenUrl = _record.resolveFileUrl(lockScreenFilename);
-
-  late final String homeScreenFilename = _data['home_screen'];
-
-  late final String homeScreenUrl = _record.resolveFileUrl(homeScreenFilename);
+  late final String homeScreenUrl = _record.resolveFileUrl('home_screen');
 
   late final ProfileDto createdBy =
       ProfileDto.fromJson(_record.expand['created_by_profile']);
@@ -31,7 +27,7 @@ class ProfileDto {
 
   late final String id = _data['id'];
 
-  late final String avatarUrl = _data.resolveFileUrl(_data['avatar']);
+  late final String avatarUrl = _data.resolveFileUrl('avatar');
 
   late final String name = _data['name'];
 
