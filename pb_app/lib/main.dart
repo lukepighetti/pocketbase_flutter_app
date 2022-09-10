@@ -52,7 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
             );
           }
 
+          // TODO: make ticket about leaving @collectionId, @collectionName in payload
           print(snapshot.data!.items.firstOrNull?.data);
+          // OR TODO: make ticket about typing this List<RecordModel>
+          print(snapshot.data!.items.firstOrNull?.expand);
 
           final androidSubmissions = snapshot.data!.items
               .map((it) => AndroidSubmissionDto.fromRecord(it));
@@ -74,7 +77,27 @@ class _MyHomePageState extends State<MyHomePage> {
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'submitted by ',
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                            const SizedBox(width: 5),
+                            Image.network(
+                              submission.createdBy.avatarUrl,
+                              height: 25,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              submission.createdBy.name,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 15),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [

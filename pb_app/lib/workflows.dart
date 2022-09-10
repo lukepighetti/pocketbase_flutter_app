@@ -17,6 +17,7 @@ class AppWorkflows {
       page: page,
       perPage: 20,
       sort: "-created_at",
+      query: {'expand': 'created_by_profile'},
     );
   }
 }

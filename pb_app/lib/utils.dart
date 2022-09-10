@@ -18,3 +18,13 @@ extension RecordModelX on RecordModel {
     );
   }
 }
+
+extension RecordMapX on Map<String, dynamic> {
+  String resolveFileUrl(String filename) {
+    return pbFileUrl(
+      collectionIdOrName: this['@collectionId'],
+      recordId: this['id'],
+      filename: filename,
+    );
+  }
+}
