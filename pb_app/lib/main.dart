@@ -1,9 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:pb_app/dto.dart';
-import 'package:pb_app/utils.dart';
 import 'package:pb_app/workflows.dart';
-import 'package:pocketbase/pocketbase.dart';
 
 final workflows = AppWorkflows();
 
@@ -24,15 +22,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -45,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Android Submissions'),
       ),
       body: FutureBuilder(
         future: results,
@@ -64,20 +60,38 @@ class _MyHomePageState extends State<MyHomePage> {
           return ListView(
             children: [
               for (final submission in androidSubmissions)
-                Row(
-                  children: [
-                    Checkbox(value: submission.approved, onChanged: (_) {}),
-                    Text(submission.name),
-                    Spacer(),
-                    Image.network(
-                      submission.lockScreenUrl,
-                      height: 100,
+                // TODO: show the user name of that who created this record
+                Card(
+                  margin: const EdgeInsets.all(15),
+                  elevation: 20,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          submission.name,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        const SizedBox(height: 25),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            // Checkbox(value: submission.approved, onChanged: (_) {}),
+                            Image.network(
+                              submission.lockScreenUrl,
+                              height: 250,
+                            ),
+                            Image.network(
+                              submission.homeScreenUrl,
+                              height: 250,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Image.network(
-                      submission.homeScreenUrl,
-                      height: 100,
-                    ),
-                  ],
+                  ),
                 ),
             ],
           );
