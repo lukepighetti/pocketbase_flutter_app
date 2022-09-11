@@ -13,6 +13,7 @@ dependencies:
   collection:
   cupertino_icons: ^1.0.2
   pocketbase: ^0.4.0
+  provider:
 
 dev_dependencies:
   flutter_test:

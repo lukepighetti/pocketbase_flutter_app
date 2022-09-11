@@ -1,13 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:pb_app/dto.dart';
+import 'package:pb_app/modals.dart';
 import 'package:pb_app/workflows.dart';
 
-final workflows = AppWorkflows();
-
 void main() async {
-  final userAuth = await workflows.authenticate();
-  debugPrint(userAuth.user?.id);
+  // final userAuth = await Workflows.authenticate();
+  // debugPrint(userAuth.user?.id);
 
   runApp(const MyApp());
 }
@@ -23,6 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(),
+      builder: (context, child) => ToastProvider(child: child!),
     );
   }
 }
@@ -35,13 +35,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final results = workflows.getAndroidSubmissions();
+  final results = Workflows.getAndroidSubmissions();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Android Submissions'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Workflows.createAndroidSubmission(context);
+        },
       ),
       body: FutureBuilder(
         future: results,

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:pb_app/config.dart';
 import 'package:pocketbase/pocketbase.dart';
 
@@ -28,4 +29,12 @@ extension RecordMapX on Map<String, dynamic> {
       filename: this[fieldKey],
     );
   }
+}
+
+extension ClientExceptionX on ClientException {
+  // TODO: create ticket about no error when account doesn't exist
+  String get message =>
+      (response['data'] as Map?)?.values.firstOrNull?['message'] ??
+      response['message'] ??
+      "Oh no! Something didn't work.";
 }
