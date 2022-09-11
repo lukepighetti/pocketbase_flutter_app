@@ -53,6 +53,7 @@ class _LoginModalState extends State<LoginModal> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: wrap in AutofillGroup
     return SimpleDialog(
       contentPadding: const EdgeInsets.all(25),
       children: [
