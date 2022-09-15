@@ -1,12 +1,16 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:pb_app/config.dart';
 import 'package:pb_app/dto.dart';
 import 'package:pb_app/modals.dart';
+import 'package:pb_app/submission_form.dart';
 import 'package:pb_app/workflows.dart';
 
 void main() async {
-  // final userAuth = await Workflows.authenticate();
-  // debugPrint(userAuth.user?.id);
+  if (Config.skipLogin) {
+    final userAuth = await Workflows.authenticate();
+    debugPrint(userAuth.user?.id);
+  }
 
   runApp(const MyApp());
 }
@@ -46,7 +50,11 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          Workflows.createAndroidSubmission(context);
+          if (Config.skipLogin) {
+            SubmissionFormScreen.show(context);
+          } else {
+            Workflows.createAndroidSubmission(context);
+          }
         },
       ),
       body: FutureBuilder(
