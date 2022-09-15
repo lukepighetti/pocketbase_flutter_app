@@ -1,0 +1,207 @@
+[
+    {
+      "id": "systemprofiles0",
+      "name": "profiles",
+      "system": true,
+      "listRule": "",
+      "viewRule": "",
+      "createRule": "userId = @request.user.id",
+      "updateRule": "userId = @request.user.id",
+      "deleteRule": null,
+      "schema": [
+        {
+          "id": "pbfielduser",
+          "name": "userId",
+          "type": "user",
+          "system": true,
+          "required": true,
+          "unique": true,
+          "options": {
+            "maxSelect": 1,
+            "cascadeDelete": true
+          }
+        },
+        {
+          "id": "pbfieldname",
+          "name": "name",
+          "type": "text",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "id": "pbfieldavatar",
+          "name": "avatar",
+          "type": "file",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "maxSize": 5242880,
+            "mimeTypes": [
+              "image/jpg",
+              "image/jpeg",
+              "image/png",
+              "image/svg+xml",
+              "image/gif"
+            ],
+            "thumbs": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "k3yl8hwvdvon1hv",
+      "name": "android_submissions",
+      "system": false,
+      "listRule": "",
+      "viewRule": null,
+      "createRule": null,
+      "updateRule": null,
+      "deleteRule": null,
+      "schema": [
+        {
+          "id": "62a7szqj",
+          "name": "name",
+          "type": "text",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {
+            "min": 3,
+            "max": 80,
+            "pattern": ""
+          }
+        },
+        {
+          "id": "cwfwk3gp",
+          "name": "approved",
+          "type": "bool",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {}
+        },
+        {
+          "id": "lrvmwul1",
+          "name": "lock_screen",
+          "type": "file",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "maxSize": 5242880,
+            "mimeTypes": [
+              "image/jpg",
+              "image/jpeg",
+              "image/png"
+            ],
+            "thumbs": [
+              "0x50",
+              "0x150",
+              "0x250"
+            ]
+          }
+        },
+        {
+          "id": "ot1eqnxq",
+          "name": "home_screen",
+          "type": "file",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "maxSize": 5242880,
+            "mimeTypes": [
+              "image/jpg",
+              "image/jpeg",
+              "image/png"
+            ],
+            "thumbs": [
+              "0x50",
+              "0x150",
+              "0x250"
+            ]
+          }
+        },
+        {
+          "id": "zbudeit8",
+          "name": "approved_by",
+          "type": "user",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "cascadeDelete": false
+          }
+        },
+        {
+          "id": "4171eyew",
+          "name": "created_by",
+          "type": "user",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "cascadeDelete": false
+          }
+        },
+        {
+          "id": "hxix9cxh",
+          "name": "links",
+          "type": "json",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {}
+        },
+        {
+          "id": "swkif6qf",
+          "name": "created_at",
+          "type": "date",
+          "system": false,
+          "required": true,
+          "unique": false,
+          "options": {
+            "min": "",
+            "max": ""
+          }
+        },
+        {
+          "id": "dva0juyi",
+          "name": "approved_at",
+          "type": "date",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": "",
+            "max": ""
+          }
+        },
+        {
+          "id": "gs5vzcid",
+          "name": "created_by_profile",
+          "type": "relation",
+          "system": false,
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "collectionId": "systemprofiles0",
+            "cascadeDelete": false
+          }
+        }
+      ]
+    }
+  ]
