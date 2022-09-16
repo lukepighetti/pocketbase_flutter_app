@@ -79,8 +79,33 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
           ),
         ),
       ),
-      body: const Center(
-        child: Text('SubmissionFormScreen'),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                height: 550,
+                width: 300,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.black)),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  print('hi');
+                },
+                color: Colors.blue,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)),
+                minWidth: 100,
+                height: 100,
+                child: const Icon(Icons.add, size: 30),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
