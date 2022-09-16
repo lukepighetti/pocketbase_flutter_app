@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:collection/collection.dart';
+import 'package:figma_squircle/figma_squircle.dart';
+import 'package:flutter/material.dart';
 import 'package:pb_app/config.dart';
 import 'package:pocketbase/pocketbase.dart';
 
@@ -38,3 +42,13 @@ extension ClientExceptionX on ClientException {
       response['message'] ??
       "Oh no! Something didn't work.";
 }
+
+ShapeBorder platformAwareShape(double radius) => SmoothRectangleBorder(
+      borderRadius: platformAwareBorderRadius(radius),
+    );
+
+SmoothBorderRadius platformAwareBorderRadius(double radius) =>
+    SmoothBorderRadius(
+      cornerRadius: radius,
+      cornerSmoothing: Platform.isIOS ? 0.6 : 0.2,
+    );
