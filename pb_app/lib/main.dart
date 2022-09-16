@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pb_app/config.dart';
 import 'package:pb_app/dto.dart';
 import 'package:pb_app/modals.dart';
-import 'package:pb_app/submission_form.dart';
+import 'package:pb_app/submission/submission_form.dart';
 import 'package:pb_app/workflows.dart';
 
 void main() async {
@@ -100,9 +100,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               style: Theme.of(context).textTheme.caption,
                             ),
                             const SizedBox(width: 5),
-                            Image.network(
-                              submission.createdBy.avatarUrl,
-                              height: 25,
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                submission.createdBy.avatarUrl,
+                              ),
                             ),
                             const SizedBox(width: 5),
                             Text(
