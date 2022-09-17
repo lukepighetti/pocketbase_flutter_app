@@ -25,9 +25,6 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
   // used to hide the centered hint when focused
   final _nameFocusNode = FocusNode();
 
-  // Title field
-  final _textEditingController = TextEditingController();
-
   // Home screen and lock screen page view controller
   final _pageController = PageController(
     viewportFraction: 0.9,
@@ -36,7 +33,6 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
   @override
   void dispose() {
     _nameFocusNode.dispose();
-    _textEditingController.dispose();
     _pageController.dispose();
     super.dispose();
   }
@@ -49,85 +45,48 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.maybePop(context),
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.black12,
-                      ),
-                      child: const Icon(
-                        Icons.close_rounded,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: platformAwareBorderRadius(10),
-                        color: Colors.black12,
-                      ),
-                      child: AnimatedBuilder(
-                        animation: Listenable.merge([
-                          _nameFocusNode,
-                          _textEditingController,
-                        ]),
-                        builder: (context, child) => Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                controller: _textEditingController,
-                                autofocus: true,
-                                focusNode: _nameFocusNode,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                cursorColor: Colors.black87,
-                                textCapitalization:
-                                    TextCapitalization.characters,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText:
-                                      _nameFocusNode.hasFocus ? '' : 'Name',
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () => _textEditingController.clear(),
-                              child: AnimatedOpacity(
-                                opacity:
-                                    _textEditingController.text.isEmpty ? 0 : 1,
-                                duration: const Duration(milliseconds: 300),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 5),
-                                  child: Icon(
-                                    Icons.clear_all_rounded,
-                                    color: Colors.red.shade300,
-                                    size: 36,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.close_rounded),
+                  onPressed: () => Navigator.of(context).maybePop(),
+                ),
+                Expanded(
+                  child: AnimatedBuilder(
+                    animation: _nameFocusNode,
+                    builder: (context, _) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: platformAwareBorderRadius(10),
+                          color: Colors.black12,
                         ),
-                      ),
-                    ),
+                        child: TextField(
+                          autofocus: true,
+                          focusNode: _nameFocusNode,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 20),
+                          cursorColor: Colors.black26,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: _nameFocusNode.hasFocus ? '' : 'Name',
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                ],
-              ),
+                ),
+                const Visibility(
+                  visible: false,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  child: IconButton(
+                    icon: Icon(Icons.close_rounded),
+                    onPressed: null,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
