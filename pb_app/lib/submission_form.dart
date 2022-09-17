@@ -107,9 +107,7 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
 }
 
 class _Card extends StatefulWidget {
-  const _Card(
-    this.title,
-  );
+  const _Card(this.title);
   final String title;
 
   @override
