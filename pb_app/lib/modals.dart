@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pb_app/submission_form.dart';
 import 'package:pb_app/utils.dart';
 import 'package:pb_app/workflows.dart';
 import 'package:pocketbase/pocketbase.dart';
@@ -32,12 +33,29 @@ class _LoginModalState extends State<LoginModal> {
   // TODO: should this be a workflow?
   Future<void> submitEmailAndPassword() async {
     // TODO: show global loading indicator
-    print('submit!');
 
     try {
-      await client.users
-          .authViaEmail(emailController.text, passwordController.text);
-      // TODO: use success toast to say we succeeded
+      await Workflows.authenticate(
+          email: emailController.text, password: passwordController.text);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Row(
+            children: const [
+              Icon(
+                Icons.check_circle_outline_rounded,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: 16,
+              ),
+              Text('Signed in successfully!'),
+            ],
+          ),
+        ),
+      );
+      Navigator.of(context).maybePop();
+      SubmissionFormScreen.show(context);
     } on ClientException catch (e) {
       // TODO: use error toast
       ToastProvider.of(context).showToast(e.message);
