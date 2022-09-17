@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:pb_app/config.dart';
 import 'package:pb_app/modals.dart';
-import 'package:pb_app/secrets.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 final client = PocketBase(Config.baseUrl);
@@ -9,8 +8,8 @@ final client = PocketBase(Config.baseUrl);
 class Workflows {
   static Future<UserAuth> authenticate() {
     return client.users.authViaEmail(
-      Secrets.email,
-      Secrets.password,
+      Config.testEmail,
+      Config.testPassword,
     );
   }
 
