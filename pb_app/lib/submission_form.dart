@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pb_app/utils.dart';
 
 class SubmissionFormScreen extends StatefulWidget {
@@ -23,7 +26,6 @@ class SubmissionFormScreen extends StatefulWidget {
 class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
   // used to hide the centered hint when focused
   final _nameFocusNode = FocusNode();
-
   @override
   void dispose() {
     _nameFocusNode.dispose();
@@ -82,34 +84,6 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
           ),
         ),
       ),
-<<<<<<< HEAD
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                height: 550,
-                width: 300,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.black)),
-              ),
-              MaterialButton(
-                onPressed: () {
-                  print('hi');
-                },
-                color: Colors.blue,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50)),
-                minWidth: 100,
-                height: 100,
-                child: const Icon(Icons.add, size: 30),
-              ),
-            ],
-          ),
-=======
       body: PageView(
         children: const [
           _Card('Home Screen'),
@@ -132,10 +106,32 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
   }
 }
 
-class _Card extends StatelessWidget {
+class _Card extends StatefulWidget {
   const _Card(this.title);
 
   final String title;
+
+  @override
+  State<_Card> createState() => _CardState();
+}
+
+class _CardState extends State<_Card> {
+  File? image;
+  final errorSnackBar = SnackBar(
+    backgroundColor: Colors.red,
+    content: Row(
+      children: const [
+        Icon(
+          Icons.error_outline_rounded,
+          color: Colors.white,
+        ),
+        SizedBox(
+          width: 16,
+        ),
+        Text('File is not an image'),
+      ],
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -144,12 +140,32 @@ class _Card extends StatelessWidget {
       color: Colors.black38,
       shape: platformAwareShape(50),
       child: InkWell(
-        onTap: () {},
+        onTap: () async {
+          final ImagePicker picker = ImagePicker();
+          try {
+            final XFile? tempimage =
+                await picker.pickImage(source: ImageSource.gallery);
+            if (tempimage == null) return;
+            setState(() {
+              image = File(tempimage.path);
+            });
+          } catch (platformException) {
+            ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
+          }
+        },
         splashColor: Colors.black12,
         highlightColor: Colors.black12,
         child: Stack(
           fit: StackFit.expand,
           children: [
+            Container(
+              decoration: BoxDecoration(
+                image: image != null
+                    ? DecorationImage(
+                        image: FileImage(image!), fit: BoxFit.fill)
+                    : null,
+              ),
+            ),
             // TODO: doesn't always respond to tap on simulator?
             Center(
               child: Container(
@@ -177,7 +193,7 @@ class _Card extends StatelessWidget {
                   borderRadius: platformAwareBorderRadius(99),
                 ),
                 child: Text(
-                  title,
+                  widget.title,
                   style: const TextStyle(
                     color: Colors.white,
                   ),
@@ -185,7 +201,6 @@ class _Card extends StatelessWidget {
               ),
             )
           ],
->>>>>>> 2edaa3d96b1040e6750aa0700234ca2ce136e8e9
         ),
       ),
     );
