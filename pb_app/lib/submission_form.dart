@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pb_app/submission.dart';
 import 'package:pb_app/utils.dart';
 
 class SubmissionFormScreen extends StatefulWidget {
@@ -86,8 +87,12 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
       ),
       body: PageView(
         children: const [
-          _Card('Home Screen'),
-          _Card('Lock Screen'),
+          _Card(
+            'Home Screen',
+          ),
+          _Card(
+            'Lock Screen',
+          ),
         ],
       ),
       bottomNavigationBar: SafeArea(
@@ -107,8 +112,9 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
 }
 
 class _Card extends StatefulWidget {
-  const _Card(this.title);
-
+  const _Card(
+    this.title,
+  );
   final String title;
 
   @override
@@ -128,7 +134,7 @@ class _CardState extends State<_Card> {
         SizedBox(
           width: 16,
         ),
-        Text('File is not an image'),
+        Text('Something went wrong :('),
       ],
     ),
   );
@@ -160,6 +166,10 @@ class _CardState extends State<_Card> {
           children: [
             Container(
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(SmoothRadius(
+                  cornerRadius: 50,
+                  cornerSmoothing: Platform.isIOS ? 0.6 : 0.2,
+                )),
                 image: image != null
                     ? DecorationImage(
                         image: FileImage(image!), fit: BoxFit.fill)
