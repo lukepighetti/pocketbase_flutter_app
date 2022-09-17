@@ -67,9 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
           }
 
           // TODO: make ticket about leaving @collectionId, @collectionName in payload
-          print(snapshot.data!.items.firstOrNull?.data);
+          debugPrint(snapshot.data!.items.firstOrNull?.data.toString());
           // OR TODO: make ticket about typing this List<RecordModel>
-          print(snapshot.data!.items.firstOrNull?.expand);
+          debugPrint(snapshot.data!.items.firstOrNull?.expand.toString());
 
           final androidSubmissions = snapshot.data!.items
               .map((it) => AndroidSubmissionDto.fromRecord(it));
