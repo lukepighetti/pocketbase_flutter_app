@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pb_app/submission.dart';
 import 'package:pb_app/utils.dart';
 
 class SubmissionFormScreen extends StatefulWidget {
