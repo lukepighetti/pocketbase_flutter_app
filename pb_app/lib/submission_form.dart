@@ -89,8 +89,8 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
             ),
           ),
         ),
-         body: PageView(
-           children: const [
+        body: PageView(
+          children: const [
             _Card('Home Screen'),
             _Card('Lock Screen'),
           ],
