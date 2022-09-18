@@ -1,0 +1,43 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "pb_app",
+      "cwd": "pb_app",
+      "request": "launch",
+      "type": "dart",
+      "toolArgs": [
+        "--dart-define",
+        "testEmail=${env:PBF_TEST_EMAIL}",
+        "--dart-define",
+        "testPassword=${env:PBF_TEST_PASSWORD}"
+      ]
+    },
+    {
+      "name": "pb_app (profile mode)",
+      "cwd": "pb_app",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile",
+      "toolArgs": [
+        "--dart-define",
+        "testEmail=${env:PBF_TEST_EMAIL}",
+        "--dart-define",
+        "testPassword=${env:PBF_TEST_PASSWORD}"
+      ]
+    },
+    {
+      "name": "pb_app (release mode)",
+      "cwd": "pb_app",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "toolArgs": [
+        "--dart-define",
+        "testEmail=${env:PBF_TEST_EMAIL}",
+        "--dart-define",
+        "testPassword=${env:PBF_TEST_PASSWORD}"
+      ]
+    }
+  ]
+}

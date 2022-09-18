@@ -32,7 +32,7 @@ class _LoginModalState extends State<LoginModal> {
   // TODO: should this be a workflow?
   Future<void> submitEmailAndPassword() async {
     // TODO: show global loading indicator
-    print('submit!');
+    debugPrint('submit!');
 
     try {
       await client.users
