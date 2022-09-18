@@ -122,7 +122,6 @@ class _Card extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            // TODO: doesn't always respond to tap on simulator?
             Center(
               child: Container(
                 height: 100,

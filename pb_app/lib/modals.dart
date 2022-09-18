@@ -184,17 +184,20 @@ class ToastProviderState extends State<ToastProvider> {
               child: const ColoredBox(color: Colors.black54),
             ),
           ),
-          Center(
-            child: AnimatedOpacity(
-              opacity: _isLoadingVisible ? 1 : 0,
-              duration: duration,
-              curve: curve,
-              child: const SizedBox.square(
-                dimension: 100,
-                child: Card(
-                  elevation: 10,
-                  child: Center(
-                    child: CircularProgressIndicator(),
+          IgnorePointer(
+            ignoring: !_isLoadingVisible,
+            child: Center(
+              child: AnimatedOpacity(
+                opacity: _isLoadingVisible ? 1 : 0,
+                duration: duration,
+                curve: curve,
+                child: const SizedBox.square(
+                  dimension: 100,
+                  child: Card(
+                    elevation: 10,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
                 ),
               ),
