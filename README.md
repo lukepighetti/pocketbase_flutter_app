@@ -6,14 +6,24 @@ Displays user submissions of their Android home screen and lock screen.
 
 <img height="500" src="doc/screenshot.png" title="A screenshot of this app"/>
 
-
 ## Environment Variables
 
-We use two environment variables to skip login for test purposes.
+We use two environment variables to skip login for testing purposes.
 
-These must be passed to dart with the argument `--dart-define`. VSCode is currently setup to use the following environment variables on your system. Other IDEs will have their own setup.
+VSCode is currently setup to use environment variables from your system. Other IDEs will have to pass variables to `--dart-define`.
 
-```
-PBF_TEST_EMAIL
-PBF_TEST_PASSWORD
-```
+| environment variable | --dart-define  |
+| -------------------- | -------------- |
+| `PBF_TEST_EMAIL`     | `testEmail`    |
+| `PBF_TEST_PASSWORD`  | `testPassword` |
+
+## Contributing
+
+Contributions are encouraged, but I expect a high standard of quality. I promise to give a thoughtful review and guide you towards success, even if you're new to coding.
+
+Since your time is valuable, keep these points in mind:
+
+1. Commit the minimum diffs to make your change
+2. New UI should be _Material Plus_ (Material with a little extra sparkle ✨)
+3. New UX should be simple and thoughtful
+4. New code should follow existing patterns
