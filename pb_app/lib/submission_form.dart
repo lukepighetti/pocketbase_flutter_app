@@ -1,5 +1,6 @@
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pb_app/utils.dart';
 
 class SubmissionFormScreen extends StatefulWidget {
@@ -24,20 +25,26 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
   // used to hide the centered hint when focused
   final _nameFocusNode = FocusNode();
 
+  // Home screen and lock screen page view controller
+  final _pageController = PageController(
+    viewportFraction: 0.9,
+  );
+
   @override
   void dispose() {
     _nameFocusNode.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle.dark,
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: SafeArea(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -49,24 +56,25 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
                   child: AnimatedBuilder(
                     animation: _nameFocusNode,
                     builder: (context, _) {
-                      return TextField(
-                        autofocus: true,
-                        focusNode: _nameFocusNode,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 20),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: _nameFocusNode.hasFocus ? '' : 'Name',
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: platformAwareBorderRadius(10),
+                          color: Colors.black12,
+                        ),
+                        child: TextField(
+                          autofocus: true,
+                          focusNode: _nameFocusNode,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 20),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: _nameFocusNode.hasFocus ? '' : 'Name',
+                          ),
                         ),
                       );
                     },
                   ),
                 ),
-
-                /// Dummy IconButton to center the text field
-                ///
-                /// Learn the rules like a scientist
-                /// so you can break them like an artist.
                 const Visibility(
                   visible: false,
                   maintainSize: true,
@@ -81,23 +89,24 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
             ),
           ),
         ),
-      ),
-      body: PageView(
-        children: const [
-          _Card('Home Screen'),
-          _Card('Lock Screen'),
-        ],
-      ),
-      bottomNavigationBar: SafeArea(
-        minimum: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-        child: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            shape: SmoothRectangleBorder(
-              borderRadius: platformAwareBorderRadius(10),
+        body: PageView(
+          controller: _pageController,
+          children: const [
+            _Card('Home Screen'),
+            _Card('Lock Screen'),
+          ],
+        ),
+        bottomNavigationBar: SafeArea(
+          minimum: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              shape: SmoothRectangleBorder(
+                borderRadius: platformAwareBorderRadius(10),
+              ),
             ),
+            child: const Text('Continue to Details'),
           ),
-          child: const Text('Continue to Details'),
         ),
       ),
     );
@@ -112,15 +121,18 @@ class _Card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(25),
+      margin: const EdgeInsets.symmetric(
+        vertical: 25,
+        horizontal: 5,
+      ),
       color: Colors.black38,
       shape: platformAwareShape(50),
       child: InkWell(
         onTap: () {},
         splashColor: Colors.black12,
         highlightColor: Colors.black12,
+        customBorder: platformAwareShape(50),
         child: Stack(
-          fit: StackFit.expand,
           children: [
             Center(
               child: Container(
@@ -154,7 +166,7 @@ class _Card extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
