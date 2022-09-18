@@ -24,4 +24,8 @@ jobs:
           channel: stable
       - run: flutter pub get
       - run: flutter analyze
-      - run: flutter format . --output none --set-exit-if-changed
+      - run: flutter format .
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Fix Dart formatting
+          file_pattern: "*.dart"
