@@ -128,14 +128,28 @@ class _Card extends StatelessWidget {
       color: Colors.black38,
       shape: platformAwareShape(50),
       child: InkWell(
-        onTap: () {
-          // TODO: InkWell not working properly into stack (https://github.com/flutter/flutter/issues/104519)
-        },
+        onTap: () {},
         splashColor: Colors.black12,
         highlightColor: Colors.black12,
         customBorder: platformAwareShape(50),
         child: Stack(
           children: [
+            Center(
+              child: Container(
+                height: 100,
+                decoration: const BoxDecoration(
+                  color: Colors.black54,
+                  shape: BoxShape.circle,
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                ),
+              ),
+            ),
             Align(
               alignment: const Alignment(0, 0.7),
               child: Container(
@@ -149,22 +163,6 @@ class _Card extends StatelessWidget {
                   title,
                   style: const TextStyle(
                     color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              child: Container(
-                height: 100,
-                decoration: const BoxDecoration(
-                  color: Colors.black54,
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 28,
                   ),
                 ),
               ),
