@@ -1,5 +1,9 @@
 # pocketbase_flutter_app
 
+<a href="https://discord.gg/g84tgDYVnb">
+    <img src="https://img.shields.io/discord/1014298178033557637?logo=discord&label=Discord&color=9C34A3&logoColor=FFFFFF" alt="chat on Discord">
+</a>
+
 A quick app written with PocketBase and Flutter.
 
 Displays user submissions of their Android home screen and lock screen.
@@ -18,6 +22,10 @@ VSCode is currently setup to use environment variables from your system. Other I
 | `PBF_TEST_PASSWORD`  | `testPassword` |
 
 ## Contributing
+
+<a href="https://github.com/lukepighetti/pocketbase_flutter_app/search?q=TODO" alt="TODOs">
+    <img src="https://shields.io/github/search/lukepighetti/pocketbase_flutter_app/TODO?label=TODOs&color=9C34A3" />
+</a>
 
 Contributions are encouraged, but I expect a high standard of quality. I promise to give a thoughtful review and guide you towards success, even if you're new to coding.
 
