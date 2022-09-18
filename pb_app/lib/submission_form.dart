@@ -49,7 +49,7 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.close_rounded),
+                  icon: const Icon(Icons.close),
                   onPressed: () => Navigator.of(context).maybePop(),
                 ),
                 Expanded(
@@ -66,7 +66,6 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
                           focusNode: _nameFocusNode,
                           textAlign: TextAlign.center,
                           style: const TextStyle(fontSize: 20),
-                          cursorColor: Colors.black26,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: _nameFocusNode.hasFocus ? '' : 'Name',
@@ -82,7 +81,7 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
                   maintainAnimation: true,
                   maintainState: true,
                   child: IconButton(
-                    icon: Icon(Icons.close_rounded),
+                    icon: Icon(Icons.close),
                     onPressed: null,
                   ),
                 ),
@@ -90,13 +89,11 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
             ),
           ),
         ),
-        body: PageView.builder(
-          controller: _pageController,
-          itemCount: 2,
-          physics: const BouncingScrollPhysics(),
-          itemBuilder: (context, index) => index == 0
-              ? const _Card('Home Screen')
-              : const _Card('Lock Screen'),
+         body: PageView(
+           children: const [
+            _Card('Home Screen'),
+            _Card('Lock Screen'),
+          ],
         ),
         bottomNavigationBar: SafeArea(
           minimum: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
@@ -132,7 +129,6 @@ class _Card extends StatelessWidget {
       child: InkWell(
         onTap: () {
           // TODO: InkWell not working properly into stack (https://github.com/flutter/flutter/issues/104519)
-          // debugPrint('I have been clicked even if the ripple isn\'t showing');
         },
         splashColor: Colors.black12,
         highlightColor: Colors.black12,
