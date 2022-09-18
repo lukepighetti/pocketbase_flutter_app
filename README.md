@@ -1,10 +1,13 @@
 # pocketbase_flutter_app
 
+<a href="https://twitch.tv/lukepighetti">
+    <img alt="Twitch Status" src="https://img.shields.io/twitch/status/lukepighetti?logo=twitch&logoColor=FFFFFF&label=Twitch&color=9C34A3">
+</a>
 <a href="https://discord.gg/g84tgDYVnb">
     <img src="https://img.shields.io/discord/1014298178033557637?logo=discord&label=Discord&color=9C34A3&logoColor=FFFFFF" alt="chat on Discord">
 </a>
 
-A quick app written with PocketBase and Flutter.
+A quick app written with PocketBase and Flutter live on [Twitch](https://twitch.tv/lukepighetti).
 
 Displays user submissions of their Android home screen and lock screen.
 
