@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:pb_app/config.dart';
 import 'package:pb_app/dto.dart';
 import 'package:pb_app/modals.dart';
+import 'package:pb_app/secrets.dart';
 import 'package:pb_app/submission_form.dart';
 import 'package:pb_app/workflows.dart';
+import 'package:pocketbase/pocketbase.dart';
 
 void main() async {
   if (Config.skipLogin) {
-    final userAuth = await Workflows.authenticate();
+    final userAuth = await client.users.authViaSecrets;
     debugPrint(userAuth.user?.id);
   }
 
@@ -135,5 +137,11 @@ class _MyHomePageState extends State<MyHomePage> {
         }),
       ),
     );
+  }
+}
+
+extension on UserService {
+  get authViaSecrets {
+    return UserService(client).authViaEmail(Secrets.email, Secrets.password);
   }
 }

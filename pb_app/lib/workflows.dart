@@ -8,11 +8,11 @@ import 'package:pocketbase/pocketbase.dart';
 final client = PocketBase(Config.baseUrl);
 
 class Workflows {
-  static Future<UserAuth> authenticate({email, password}) {
-    return client.users.authViaEmail(
-      email ?? Secrets.email,
-      password ?? Secrets.password,
-    );
+  static Future<UserAuth> authenticate(email, password) {
+    if (email != null && password != null) {
+      return client.users.authViaEmail(email, password);
+    }
+    return client.users.authViaSecrets;
   }
 
   static Future<ResultList<RecordModel>> getAndroidSubmissions({int page = 1}) {
@@ -37,5 +37,11 @@ class Workflows {
     if (isLoggedIn) {
       SubmissionFormScreen.show(context);
     }
+  }
+}
+
+extension on UserService {
+  get authViaSecrets {
+    return UserService(client).authViaEmail(Secrets.email, Secrets.password);
   }
 }
