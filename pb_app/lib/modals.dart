@@ -36,7 +36,7 @@ class _LoginModalState extends State<LoginModal> {
 
     try {
       await Workflows.authenticate(
-          email: emailController.text, password: passwordController.text);
+          emailController.text, passwordController.text);
       Navigator.of(context).maybePop();
       SubmissionFormScreen.show(context);
     } on ClientException catch (e) {
