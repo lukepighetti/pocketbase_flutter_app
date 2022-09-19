@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pb_app/modals.dart';
 import 'package:pb_app/utils.dart';
 
 class SubmissionFormScreen extends StatefulWidget {
@@ -149,7 +150,7 @@ class _CardState extends State<_Card> {
               image = File(tempimage.path);
             });
           } catch (platformException) {
-            ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
+            ToastProvider.of(context).showToast(platformException.toString());
           }
         },
         splashColor: Colors.black12,
