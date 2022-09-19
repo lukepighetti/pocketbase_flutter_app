@@ -2,16 +2,11 @@ import 'package:flutter/widgets.dart';
 import 'package:pb_app/config.dart';
 import 'package:pb_app/modals.dart';
 import 'package:pb_app/submission_form.dart';
-import 'package:pb_app/utils.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 final client = PocketBase(Config.baseUrl);
 
 class Workflows {
-  static Future<UserAuth> authenticate(email, password) {
-    return client.users.authViaSecrets;
-  }
-
   static Future<ResultList<RecordModel>> getAndroidSubmissions({int page = 1}) {
     return client.records.getList(
       "android_submissions",

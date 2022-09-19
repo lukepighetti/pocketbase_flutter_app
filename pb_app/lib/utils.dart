@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:pb_app/config.dart';
-import 'package:pb_app/secrets.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 String pbFileUrl({
@@ -56,6 +55,7 @@ SmoothBorderRadius platformAwareBorderRadius(double radius) =>
 
 extension AuthViaSecret on UserService {
   Future<UserAuth> get authViaSecrets async {
-    return UserService(client).authViaEmail(Secrets.email, Secrets.password);
+    return UserService(client)
+        .authViaEmail(Config.testEmail, Config.testPassword);
   }
 }
