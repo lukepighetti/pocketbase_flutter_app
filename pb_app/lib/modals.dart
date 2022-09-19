@@ -35,12 +35,11 @@ class _LoginModalState extends State<LoginModal> {
     // TODO: show global loading indicator
 
     try {
-      await Workflows.authenticate(
-          emailController.text, passwordController.text);
+      await client.users
+          .authViaEmail(emailController.text, passwordController.text);
       Navigator.of(context).maybePop();
       SubmissionFormScreen.show(context);
     } on ClientException catch (e) {
-      // TODO: use error toast
       ToastProvider.of(context).showToast(e.message);
     }
   }

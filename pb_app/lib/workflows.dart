@@ -1,17 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:pb_app/config.dart';
 import 'package:pb_app/modals.dart';
-import 'package:pb_app/secrets.dart';
 import 'package:pb_app/submission_form.dart';
+import 'package:pb_app/utils.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 final client = PocketBase(Config.baseUrl);
 
 class Workflows {
   static Future<UserAuth> authenticate(email, password) {
-    if (email != null && password != null) {
-      return client.users.authViaEmail(email, password);
-    }
     return client.users.authViaSecrets;
   }
 
@@ -37,11 +34,5 @@ class Workflows {
     if (isLoggedIn) {
       SubmissionFormScreen.show(context);
     }
-  }
-}
-
-extension on UserService {
-  get authViaSecrets {
-    return UserService(client).authViaEmail(Secrets.email, Secrets.password);
   }
 }
