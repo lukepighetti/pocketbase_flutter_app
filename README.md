@@ -24,6 +24,10 @@ VSCode is currently setup to use environment variables from your system. Other I
 | `PBF_TEST_EMAIL`     | `testEmail`    |
 | `PBF_TEST_PASSWORD`  | `testPassword` |
 
+### Troubleshooting
+
+After adding these environment variables to `~/.zshrc` using the syntax `export PBF_TEST_EMAIL=foo@gmail.com, run `source ~/.zshrc`, restart VSCode, restart Simulator, and try running the app.
+
 ## Contributing
 
 <a href="https://github.com/lukepighetti/pocketbase_flutter_app/search?q=TODO" alt="TODOs">
