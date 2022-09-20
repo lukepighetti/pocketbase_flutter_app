@@ -167,6 +167,10 @@ class ToastProviderState extends State<ToastProvider> {
     });
   }
 
+  /// Used to show that a button or feature has not been implemented and is
+  /// "For Placement Only"
+  void showFpoWarning() => showToast('FPO');
+
   @override
   Widget build(BuildContext context) {
     const duration = Duration(milliseconds: 500);
