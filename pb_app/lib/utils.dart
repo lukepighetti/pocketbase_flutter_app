@@ -52,3 +52,10 @@ SmoothBorderRadius platformAwareBorderRadius(double radius) =>
       cornerRadius: radius,
       cornerSmoothing: Platform.isIOS ? 0.6 : 0.2,
     );
+
+extension UserServiceX on UserService {
+  Future<UserAuth> get authViaSecrets async {
+    return UserService(client)
+        .authViaEmail(Config.testEmail, Config.testPassword);
+  }
+}

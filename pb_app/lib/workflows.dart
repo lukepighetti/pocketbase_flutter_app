@@ -1,18 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:pb_app/config.dart';
 import 'package:pb_app/modals.dart';
+import 'package:pb_app/submission_form.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 final client = PocketBase(Config.baseUrl);
 
 class Workflows {
-  static Future<UserAuth> authenticate() {
-    return client.users.authViaEmail(
-      Config.testEmail,
-      Config.testPassword,
-    );
-  }
-
   static Future<ResultList<RecordModel>> getAndroidSubmissions({int page = 1}) {
     return client.records.getList(
       "android_submissions",
@@ -33,9 +27,7 @@ class Workflows {
 
     /// If we're logged in, show android submission form
     if (isLoggedIn) {
-      // TODO:
-      // Modals.showSubmissionModal(context);
-
+      SubmissionFormScreen.show(context);
     }
   }
 }

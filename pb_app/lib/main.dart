@@ -4,11 +4,12 @@ import 'package:pb_app/config.dart';
 import 'package:pb_app/dto.dart';
 import 'package:pb_app/modals.dart';
 import 'package:pb_app/submission_form.dart';
+import 'package:pb_app/utils.dart';
 import 'package:pb_app/workflows.dart';
 
 void main() async {
   if (Config.skipLogin) {
-    final userAuth = await Workflows.authenticate();
+    final userAuth = await client.users.authViaSecrets;
     debugPrint(userAuth.user?.id);
   }
 
@@ -77,7 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
           return ListView(
             children: [
               for (final submission in androidSubmissions)
-                // TODO: show the user name of that who created this record
                 Card(
                   margin: const EdgeInsets.all(15),
                   elevation: 20,

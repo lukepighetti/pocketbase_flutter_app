@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:figma_squircle/figma_squircle.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:pb_app/modals.dart';
 import 'package:pb_app/utils.dart';
 
 class SubmissionFormScreen extends StatefulWidget {
@@ -113,10 +118,17 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
   }
 }
 
-class _Card extends StatelessWidget {
+class _Card extends StatefulWidget {
   const _Card(this.title);
 
   final String title;
+
+  @override
+  State<_Card> createState() => _CardState();
+}
+
+class _CardState extends State<_Card> {
+  File? image;
 
   @override
   Widget build(BuildContext context) {
@@ -128,12 +140,39 @@ class _Card extends StatelessWidget {
       color: Colors.black38,
       shape: platformAwareShape(50),
       child: InkWell(
-        onTap: () {},
+        onTap: () async {
+          try {
+            final xfile =
+                await ImagePicker().pickImage(source: ImageSource.gallery);
+            if (xfile == null || !mounted) return;
+            setState(() {
+              image = File(xfile.path);
+            });
+          } catch (e) {
+            if (kDebugMode && mounted) {
+              ToastProvider.of(context).showToast(e.toString());
+            }
+          }
+        },
         splashColor: Colors.black12,
         highlightColor: Colors.black12,
         customBorder: platformAwareShape(50),
         child: Stack(
           children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(SmoothRadius(
+                  cornerRadius: 50,
+                  cornerSmoothing: Platform.isIOS ? 0.6 : 0.2,
+                )),
+                image: image != null
+                    ? DecorationImage(
+                        image: FileImage(image!),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
+              ),
+            ),
             Center(
               child: Container(
                 height: 100,
@@ -160,7 +199,7 @@ class _Card extends StatelessWidget {
                   borderRadius: platformAwareBorderRadius(99),
                 ),
                 child: Text(
-                  title,
+                  widget.title,
                   style: const TextStyle(
                     color: Colors.white,
                   ),

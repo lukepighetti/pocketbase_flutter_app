@@ -10,16 +10,16 @@ dependencies:
   flutter:
     sdk: flutter
 
-  collection:
+  collection: any
   cupertino_icons: ^1.0.2
   figma_squircle: ^0.5.3
+  image_picker: ^0.8.5+3
   pocketbase: ^0.4.0
-  provider:
+  provider: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^2.0.0
 
 flutter:

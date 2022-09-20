@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pb_app/submission_form.dart';
 import 'package:pb_app/utils.dart';
 import 'package:pb_app/workflows.dart';
 import 'package:pocketbase/pocketbase.dart';
@@ -37,9 +38,11 @@ class _LoginModalState extends State<LoginModal> {
     try {
       await client.users
           .authViaEmail(emailController.text, passwordController.text);
-      // TODO: use success toast to say we succeeded
+
+      if (!mounted) return;
+      Navigator.of(context).maybePop();
+      SubmissionFormScreen.show(context);
     } on ClientException catch (e) {
-      // TODO: use error toast
       ToastProvider.of(context).showToast(e.message);
     }
   }

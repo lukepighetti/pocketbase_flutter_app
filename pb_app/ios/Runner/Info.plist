@@ -47,5 +47,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>So you can share your home and lock screens!</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We don't actually need this</string>
 </dict>
 </plist>
