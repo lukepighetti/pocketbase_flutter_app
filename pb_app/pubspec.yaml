@@ -16,6 +16,8 @@ dependencies:
   image_picker: ^0.8.5+3
   pocketbase: ^0.4.0
   provider: any
+  palette_generator: ^0.3.3+2
+  flutter_colorpicker: ^1.0.3
 
 dev_dependencies:
   flutter_test:
