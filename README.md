@@ -13,20 +13,9 @@ Displays user submissions of their Android home screen and lock screen.
 
 <img height="500" src="doc/screenshot.png" title="A screenshot of this app"/>
 
-## Environment Variables
+## Secrets
 
-We use two environment variables to skip login for testing purposes.
-
-VSCode is currently setup to use environment variables from your system. Other IDEs will have to pass variables to `--dart-define`.
-
-| environment variable | --dart-define  |
-| -------------------- | -------------- |
-| `PBF_TEST_EMAIL`     | `testEmail`    |
-| `PBF_TEST_PASSWORD`  | `testPassword` |
-
-### Troubleshooting
-
-After adding these environment variables to `~/.zshrc` using the syntax `export PBF_TEST_EMAIL=foo@gmail.com`, run `source ~/.zshrc`, restart VSCode, restart Simulator, and try running the app.
+Copy `pb_app/lib/secrets.ci.dart` to `pb_app/lib/secrets.dart` and add your own secrets.
 
 ## Contributing
 
