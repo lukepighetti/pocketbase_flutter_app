@@ -23,6 +23,7 @@ jobs:
         with:
           channel: stable
       - run: flutter pub get
+      - run: cp lib/secrets.ci.dart lib/secrets.dart
       - run: flutter analyze
       - run: flutter format .
       - uses: stefanzweifel/git-auto-commit-action@v4
