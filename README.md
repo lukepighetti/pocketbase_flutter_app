@@ -30,8 +30,8 @@ After adding these environment variables to `~/.zshrc` using the syntax `export 
 
 ## Contributing
 
-<a href="https://github.com/lukepighetti/pocketbase_flutter_app/search?q=TODO" alt="TODOs">
-    <img src="https://shields.io/github/search/lukepighetti/pocketbase_flutter_app/TODO?label=TODOs&color=9C34A3" />
+<a href="https://github.com/lukepighetti/pocketbase_flutter_app/search?q=TODO+filename%3A*.dart" alt="TODOs">
+    <img src="https://shields.io/github/search/lukepighetti/pocketbase_flutter_app/TODO%20filename%3A%2A.dart?label=TODOs&color=9C34A3" />
 </a>
 
 Contributions are encouraged, but I expect a high standard of quality. I promise to give a thoughtful review and guide you towards success, even if you're new to coding.
