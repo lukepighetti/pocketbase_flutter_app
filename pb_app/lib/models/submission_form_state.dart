@@ -12,12 +12,18 @@ class SubmissionFormState extends ChangeNotifier {
 
   SubmissionFormState();
 
-  void setCard1Image(File? image) async {
-    if (image != null) {
-      final palette = await PaletteGenerator.fromImageProvider(FileImage(image));
-      _card1Dominant = palette.dominantColor?.color;
-      setSelectedBackgroundColor(_card1Dominant);
+  void setCard1Image(File image) async {
+    final palette = await PaletteGenerator.fromImageProvider(FileImage(image));
+    _card1Dominant = palette.dominantColor?.color;
+    final Color pastelTone;
+    if (_card1Dominant == null) {
+      pastelTone = Colors.white;
+    } else {
+      final desaturatedValue =
+          HSLColor.fromColor(_card1Dominant!).withSaturation(.6).toColor();
+      pastelTone = Color.lerp(Colors.white, desaturatedValue, .9)!;
     }
+    setSelectedBackgroundColor(pastelTone);
   }
 
   void setSelectedBackgroundColor(Color? color) {

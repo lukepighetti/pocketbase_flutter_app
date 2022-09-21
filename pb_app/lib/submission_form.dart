@@ -153,7 +153,7 @@ class _CardState extends State<_Card> {
                 setState(() {
                   image = File(xfile.path);
                 });
-                context.read<SubmissionFormState>().setCard1Image(image);
+                context.read<SubmissionFormState>().setCard1Image(image!);
               } catch (e) {
                 if (kDebugMode && mounted) {
                   ToastProvider.of(context).showToast(e.toString());
