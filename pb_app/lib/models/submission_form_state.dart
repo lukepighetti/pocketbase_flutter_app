@@ -1,13 +1,14 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart' show Colors;
 import 'package:flutter/widgets.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 class SubmissionFormState extends ChangeNotifier {
   Color? _card1Dominant;
-  Color? _selectedBackgroundColor;
+  Color _selectedBackgroundColor = Colors.white;
 
-  Color? get selectedBackgroundColor => _selectedBackgroundColor;
+  Color get selectedBackgroundColor => _selectedBackgroundColor;
 
   SubmissionFormState();
 
@@ -20,7 +21,7 @@ class SubmissionFormState extends ChangeNotifier {
   }
 
   void setSelectedBackgroundColor(Color? color) {
-    _selectedBackgroundColor = color;
+    _selectedBackgroundColor = color ?? Colors.white;
     notifyListeners();
   }
 }

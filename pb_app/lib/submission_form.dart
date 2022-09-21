@@ -59,9 +59,16 @@ class _UploadPageScaffoldState extends State<UploadPageScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SubmissionFormState>(builder: (context, value, child) {
-      return Scaffold(
-        backgroundColor: value.selectedBackgroundColor ?? Colors.white,
+    return Consumer<SubmissionFormState>(
+      builder: (context, value, child) {
+        assert(child != null, 'oh fuck put it back in!');
+        return Theme(
+          data: Theme.of(context)
+              .copyWith(scaffoldBackgroundColor: value.selectedBackgroundColor),
+          child: child!,
+        );
+      },
+      child: Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: SafeArea(
@@ -110,8 +117,8 @@ class _UploadPageScaffoldState extends State<UploadPageScaffold> {
             child: const Text('Continue to Details'),
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }
 
