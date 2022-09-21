@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pb_app/modals.dart';
+import 'package:pb_app/models/submission_form_state.dart';
 import 'package:pb_app/utils.dart';
+import 'package:provider/provider.dart';
 
 // TODO: get this value from the actual device specifications
 const _kPhotoAspectRatio = 9 / 19.5;
@@ -30,20 +32,35 @@ class SubmissionFormScreen extends StatefulWidget {
 }
 
 class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
-  // Home screen and lock screen page view controller
-  PageController? _pageController;
-
-  @override
-  void dispose() {
-    _pageController?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.dark,
-      child: Scaffold(
+      child: ChangeNotifierProvider<SubmissionFormState>(
+        create: (_) => SubmissionFormState(),
+        child: UploadPageScaffold(
+        ),
+      ),
+    );
+  }
+}
+
+class UploadPageScaffold extends StatefulWidget {
+  const UploadPageScaffold({super.key});
+
+  @override
+  State<UploadPageScaffold> createState() => _UploadPageScaffoldState();
+}
+
+class _UploadPageScaffoldState extends State<UploadPageScaffold> {
+  PageController? _pageController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<SubmissionFormState>(builder: (context, value, child) {
+      return Scaffold(
+        backgroundColor: value.selectedBackgroundColor ?? Colors.white,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: SafeArea(
@@ -95,8 +112,8 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
             child: const Text('Continue to Details'),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
@@ -131,6 +148,7 @@ class _CardState extends State<_Card> {
                 setState(() {
                   image = File(xfile.path);
                 });
+                context.read<SubmissionFormState>().setCard1Image(image);
               } catch (e) {
                 if (kDebugMode && mounted) {
                   ToastProvider.of(context).showToast(e.toString());
