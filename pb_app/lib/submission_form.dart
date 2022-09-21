@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pb_app/modals.dart';
 import 'package:pb_app/models/submission_form_state.dart';
+import 'package:pb_app/submission_fom/EyeDropper.dart';
 import 'package:pb_app/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -73,10 +74,7 @@ class _UploadPageScaffoldState extends State<UploadPageScaffold> {
                   onPressed: () => Navigator.of(context).maybePop(),
                 ),
                 const Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.colorize),
-                  onPressed: () => ToastProvider.of(context).showFpoWarning(),
-                ),
+                const EyeDropper(),
               ],
             ),
           ),
