@@ -57,6 +57,12 @@ class _UploadPageScaffoldState extends State<UploadPageScaffold> {
   PageController? _pageController;
 
   @override
+  void dispose() {
+    _pageController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<SubmissionFormState>(
       builder: (context, value, child) {
