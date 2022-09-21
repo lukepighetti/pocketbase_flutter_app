@@ -62,9 +62,18 @@ class _UploadPageScaffoldState extends State<UploadPageScaffold> {
     return Consumer<SubmissionFormState>(
       builder: (context, value, child) {
         assert(child != null, 'oh fuck put it back in!');
-        return Theme(
-          data: Theme.of(context)
-              .copyWith(scaffoldBackgroundColor: value.selectedBackgroundColor),
+        final isBackgroundLight =
+            value.selectedBackgroundColor.computeLuminance() > 0.5;
+        return AnimatedTheme(
+          curve: Curves.easeInCubic,
+          duration: const Duration(seconds: 2),
+          data: Theme.of(context).copyWith(
+            scaffoldBackgroundColor: value.selectedBackgroundColor,
+            iconTheme: Theme.of(context).iconTheme.copyWith(
+                  color: isBackgroundLight ? Colors.black : Colors.white,
+                ),
+            brightness: isBackgroundLight ? Brightness.light : Brightness.dark,
+          ),
           child: child!,
         );
       },
