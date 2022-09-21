@@ -10,35 +10,73 @@ class EyeDropper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final submissionFormState = context.read<SubmissionFormState>();
     return IconButton(
       icon: const Icon(Icons.colorize),
       onPressed: () {
         showDialog(
           context: context,
-          builder: (dialogContext) => AlertDialog(
-            title: const Text('Pick a color!'),
-            content: SingleChildScrollView(
-              child: SlidePicker(
-                pickerColor: context
-                    .read<SubmissionFormState>()
-                    .selectedBackgroundColor ??
-                    Colors.white,
-                onColorChanged: (color) => context
-                    .read<SubmissionFormState>()
-                    .setSelectedBackgroundColor(color),
+          builder: (_) {
+            return Theme(
+              data: _adaptThemeBrightness(
+                Theme.of(context),
+                submissionFormState,
               ),
-            ),
-            actions: <Widget>[
-              ElevatedButton(
-                child: const Text('Got it'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
+              child: _DialogWidget(submissionFormState: submissionFormState),
+            );
+          },
         );
       },
+    );
+  }
+
+  ThemeData _adaptThemeBrightness(
+      ThemeData theme, SubmissionFormState submissionFormState) {
+    final foregroundColor =
+        submissionFormState.isLightBackground ? Colors.black : Colors.white;
+    return theme.copyWith(
+        textTheme: theme.textTheme.copyWith(
+      bodyText2: theme.textTheme.bodyText2!.copyWith(
+        color: foregroundColor,
+      ),
+      bodyText1: theme.textTheme.bodyText1!.copyWith(
+        color: foregroundColor,
+      ),
+      headline6: theme.textTheme.headline6!.copyWith(
+        color: foregroundColor,
+      ),
+    ));
+  }
+}
+
+class _DialogWidget extends StatelessWidget {
+  const _DialogWidget({
+    Key? key,
+    required this.submissionFormState,
+  }) : super(key: key);
+
+  final SubmissionFormState submissionFormState;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Set background'),
+      backgroundColor: submissionFormState.isLightBackground
+          ? Colors.white
+          : Colors.grey.shade900,
+      content: SingleChildScrollView(
+        child: SlidePicker(
+          enableAlpha: false,
+          pickerColor: submissionFormState.selectedBackgroundColor,
+          onColorChanged: submissionFormState.setSelectedBackgroundColor,
+        ),
+      ),
+      actions: [
+        ElevatedButton(
+          child: const Text('Done'),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ],
     );
   }
 }

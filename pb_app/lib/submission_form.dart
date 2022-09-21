@@ -40,8 +40,7 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
       value: SystemUiOverlayStyle.dark,
       child: ChangeNotifierProvider<SubmissionFormState>(
         create: (_) => SubmissionFormState(),
-        child: UploadPageScaffold(
-        ),
+        child: const UploadPageScaffold(),
       ),
     );
   }
@@ -62,17 +61,16 @@ class _UploadPageScaffoldState extends State<UploadPageScaffold> {
     return Consumer<SubmissionFormState>(
       builder: (context, value, child) {
         assert(child != null, 'oh fuck put it back in!');
-        final isBackgroundLight =
-            value.selectedBackgroundColor.computeLuminance() > 0.5;
         return AnimatedTheme(
           curve: Curves.easeInCubic,
           duration: const Duration(seconds: 2),
           data: Theme.of(context).copyWith(
             scaffoldBackgroundColor: value.selectedBackgroundColor,
             iconTheme: Theme.of(context).iconTheme.copyWith(
-                  color: isBackgroundLight ? Colors.black : Colors.white,
+                  color: value.isLightBackground ? Colors.black : Colors.white,
                 ),
-            brightness: isBackgroundLight ? Brightness.light : Brightness.dark,
+            brightness:
+                value.isLightBackground ? Brightness.light : Brightness.dark,
           ),
           child: child!,
         );

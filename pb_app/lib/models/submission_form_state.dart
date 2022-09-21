@@ -10,6 +10,9 @@ class SubmissionFormState extends ChangeNotifier {
 
   Color get selectedBackgroundColor => _selectedBackgroundColor;
 
+  bool get isLightBackground =>
+      _selectedBackgroundColor.computeLuminance() > 0.5;
+
   SubmissionFormState();
 
   void setCard1Image(File image) async {
