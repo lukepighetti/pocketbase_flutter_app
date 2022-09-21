@@ -13,24 +13,11 @@ class EyeDropper extends StatelessWidget {
     final submissionFormState = context.read<SubmissionFormState>();
     return IconButton(
       icon: const Icon(Icons.colorize),
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (_) {
-            return Theme(
-              data: _adaptThemeBrightness(
-                Theme.of(context),
-                submissionFormState,
-              ),
-              child: _DialogWidget(submissionFormState: submissionFormState),
-            );
-          },
-        );
-      },
+      onPressed: () => show(context, submissionFormState),
     );
   }
 
-  ThemeData _adaptThemeBrightness(
+  static ThemeData _adaptThemeBrightness(
       ThemeData theme, SubmissionFormState submissionFormState) {
     final foregroundColor =
         submissionFormState.isLightBackground ? Colors.black : Colors.white;
@@ -46,6 +33,22 @@ class EyeDropper extends StatelessWidget {
         color: foregroundColor,
       ),
     ));
+  }
+
+  static Future<void> show(
+      BuildContext context, SubmissionFormState submissionFormState) {
+    return showDialog(
+      context: context,
+      builder: (_) {
+        return Theme(
+          data: _adaptThemeBrightness(
+            Theme.of(context),
+            submissionFormState,
+          ),
+          child: _DialogWidget(submissionFormState: submissionFormState),
+        );
+      },
+    );
   }
 }
 

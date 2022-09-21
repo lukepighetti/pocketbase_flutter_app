@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pb_app/modals.dart';
 import 'package:pb_app/models/submission_form_state.dart';
-import 'package:pb_app/submission_fom/EyeDropper.dart';
+import 'package:pb_app/submission_form/eye_dropper.dart';
 import 'package:pb_app/utils.dart';
 import 'package:provider/provider.dart';
 
