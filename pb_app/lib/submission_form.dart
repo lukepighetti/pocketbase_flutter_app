@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pb_app/modals.dart';
+import 'package:pb_app/models/submission_form_state.dart';
+import 'package:pb_app/submission_form/eye_dropper.dart';
 import 'package:pb_app/utils.dart';
+import 'package:provider/provider.dart';
 
 // TODO: get this value from the actual device specifications
 const _kPhotoAspectRatio = 9 / 19.5;
@@ -30,7 +33,26 @@ class SubmissionFormScreen extends StatefulWidget {
 }
 
 class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
-  // Home screen and lock screen page view controller
+  @override
+  Widget build(BuildContext context) {
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle.dark,
+      child: ChangeNotifierProvider<SubmissionFormState>(
+        create: (_) => SubmissionFormState(),
+        child: const UploadPageScaffold(),
+      ),
+    );
+  }
+}
+
+class UploadPageScaffold extends StatefulWidget {
+  const UploadPageScaffold({super.key});
+
+  @override
+  State<UploadPageScaffold> createState() => _UploadPageScaffoldState();
+}
+
+class _UploadPageScaffoldState extends State<UploadPageScaffold> {
   PageController? _pageController;
 
   @override
@@ -41,8 +63,23 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle.dark,
+    return Consumer<SubmissionFormState>(
+      builder: (context, value, child) {
+        assert(child != null, 'oh fuck put it back in!');
+        return AnimatedTheme(
+          curve: Curves.easeInCubic,
+          duration: const Duration(seconds: 2),
+          data: Theme.of(context).copyWith(
+            scaffoldBackgroundColor: value.selectedBackgroundColor,
+            iconTheme: Theme.of(context).iconTheme.copyWith(
+                  color: value.isLightBackground ? Colors.black : Colors.white,
+                ),
+            brightness:
+                value.isLightBackground ? Brightness.light : Brightness.dark,
+          ),
+          child: child!,
+        );
+      },
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
@@ -56,10 +93,7 @@ class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
                   onPressed: () => Navigator.of(context).maybePop(),
                 ),
                 const Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.colorize),
-                  onPressed: () => ToastProvider.of(context).showFpoWarning(),
-                ),
+                const EyeDropper(),
               ],
             ),
           ),
@@ -131,6 +165,7 @@ class _CardState extends State<_Card> {
                 setState(() {
                   image = File(xfile.path);
                 });
+                context.read<SubmissionFormState>().setCard1Image(image!);
               } catch (e) {
                 if (kDebugMode && mounted) {
                   ToastProvider.of(context).showToast(e.toString());
