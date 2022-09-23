@@ -33,7 +33,6 @@ class SubmissionFormScreen extends StatefulWidget {
 }
 
 class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
-
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion(
