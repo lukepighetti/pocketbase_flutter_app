@@ -35,12 +35,9 @@ class SubmissionFormScreen extends StatefulWidget {
 class _SubmissionFormScreenState extends State<SubmissionFormScreen> {
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle.dark,
-      child: ChangeNotifierProvider<SubmissionFormState>(
-        create: (_) => SubmissionFormState(),
-        child: const UploadPageScaffold(),
-      ),
+    return ChangeNotifierProvider<SubmissionFormState>(
+      create: (_) => SubmissionFormState(),
+      child: const UploadPageScaffold(),
     );
   }
 }
@@ -66,18 +63,24 @@ class _UploadPageScaffoldState extends State<UploadPageScaffold> {
     return Consumer<SubmissionFormState>(
       builder: (context, value, child) {
         assert(child != null, 'oh fuck put it back in!');
-        return AnimatedTheme(
-          curve: Curves.easeInCubic,
-          duration: const Duration(seconds: 2),
-          data: Theme.of(context).copyWith(
-            scaffoldBackgroundColor: value.selectedBackgroundColor,
-            iconTheme: Theme.of(context).iconTheme.copyWith(
-                  color: value.isLightBackground ? Colors.black : Colors.white,
-                ),
-            brightness:
-                value.isLightBackground ? Brightness.light : Brightness.dark,
+        return AnnotatedRegion(
+          value: value.isLightBackground
+              ? SystemUiOverlayStyle.dark
+              : SystemUiOverlayStyle.light,
+          child: AnimatedTheme(
+            curve: Curves.easeInCubic,
+            duration: const Duration(seconds: 2),
+            data: Theme.of(context).copyWith(
+              scaffoldBackgroundColor: value.selectedBackgroundColor,
+              iconTheme: Theme.of(context).iconTheme.copyWith(
+                    color:
+                        value.isLightBackground ? Colors.black : Colors.white,
+                  ),
+              brightness:
+                  value.isLightBackground ? Brightness.light : Brightness.dark,
+            ),
+            child: child!,
           ),
-          child: child!,
         );
       },
       child: Scaffold(
