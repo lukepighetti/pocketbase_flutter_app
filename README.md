@@ -17,6 +17,13 @@ Displays user submissions of their Android home screen and lock screen.
 
 Copy `pb_app/lib/secrets.ci.dart` to `pb_app/lib/secrets.dart` and add your own secrets.
 
+## Setup
+
+To get started, you can follow the Pocketbase setup instructions [here](https://pocketbase.io/docs/)
+
+After creating an admin account at `http://127.0.0.1:8090/_/`, create a user account that matches the login information found in
+`pb_app/lib/secrets.dart`
+
 ## Contributing
 
 <a href="https://github.com/lukepighetti/pocketbase_flutter_app/search?q=TODO+filename%3A*.dart" alt="TODOs">
