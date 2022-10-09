@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:pb_app/config.dart';
+import 'package:pb_app/models/submission_form_state.dart';
 import 'package:pb_app/secrets.dart';
 import 'package:pocketbase/pocketbase.dart';
 
@@ -58,5 +59,11 @@ extension UserServiceX on UserService {
   Future<UserAuth> get authViaSecrets async {
     return UserService(client)
         .authViaEmail(Secrets.testEmail, Secrets.testPassword);
+  }
+}
+
+extension ScreenshotSubmissionLocationsX on ScreenshotSubmissionLocations {
+  String toTitleString() {
+    return '${name[0].toUpperCase()}${name.substring(1)} Screen';
   }
 }

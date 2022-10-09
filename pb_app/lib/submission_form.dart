@@ -115,8 +115,8 @@ class _UploadPageScaffoldState extends State<UploadPageScaffold> {
             ),
             clipBehavior: Clip.none,
             children: const [
-              _Card('Home Screen'),
-              _Card('Lock Screen'),
+              _Card(ScreenshotSubmissionLocations.home),
+              _Card(ScreenshotSubmissionLocations.lock),
             ],
           );
         }),
@@ -138,19 +138,33 @@ class _UploadPageScaffoldState extends State<UploadPageScaffold> {
 }
 
 class _Card extends StatefulWidget {
-  const _Card(this.title);
+  const _Card(this.screen);
 
-  final String title;
+  final ScreenshotSubmissionLocations screen;
 
   @override
   State<_Card> createState() => _CardState();
 }
 
 class _CardState extends State<_Card> {
-  File? image;
-
   @override
   Widget build(BuildContext context) {
+    //Is this card submitting a lock screen or a home screen?
+    final cardType = widget.screen;
+
+    final homescreenImage =
+        context.select((SubmissionFormState state) => state.homeScreenImage);
+    final lockscreenImage =
+        context.select((SubmissionFormState state) => state.lockscreenImage);
+
+    File? image;
+
+    if (cardType == ScreenshotSubmissionLocations.home) {
+      image = homescreenImage;
+    } else if (cardType == ScreenshotSubmissionLocations.lock) {
+      image = lockscreenImage;
+    }
+
     return Center(
       child: AspectRatio(
         aspectRatio: _kPhotoAspectRatio,
@@ -165,10 +179,10 @@ class _CardState extends State<_Card> {
                 final xfile =
                     await ImagePicker().pickImage(source: ImageSource.gallery);
                 if (xfile == null || !mounted) return;
-                setState(() {
-                  image = File(xfile.path);
-                });
-                context.read<SubmissionFormState>().setCard1Image(image!);
+                context.read<SubmissionFormState>().setCardImage(
+                      File(xfile.path),
+                      cardType,
+                    );
               } catch (e) {
                 if (kDebugMode && mounted) {
                   ToastProvider.of(context).showToast(e.toString());
@@ -188,7 +202,7 @@ class _CardState extends State<_Card> {
                     )),
                     image: image != null
                         ? DecorationImage(
-                            image: FileImage(image!),
+                            image: FileImage(image),
                             fit: BoxFit.cover,
                           )
                         : null,
@@ -220,7 +234,7 @@ class _CardState extends State<_Card> {
                       borderRadius: platformAwareBorderRadius(99),
                     ),
                     child: Text(
-                      widget.title,
+                      cardType.toTitleString(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
